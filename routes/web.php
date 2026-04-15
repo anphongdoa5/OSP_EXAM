@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller2;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller3; 
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/caycanh/theloai/{id}', [ProductController::class, 'byCategory'])->name('category');
@@ -14,7 +15,8 @@ Route::get('/gio-hang', [ProductController::class, 'viewCart'])->name('cart.view
 Route::post('/update-cart', [ProductController::class, 'updateCart'])->name('cart.update');
 Route::get('/remove-from-cart/{id}', [ProductController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');
-use App\Http\Controllers\Controller3; 
+
+
 
 Route::get('/', [HomeController::class, 'index']);
 
