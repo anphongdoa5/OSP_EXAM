@@ -22,11 +22,7 @@ class Controller3 extends Controller
 
     public function show($id)
     {
-        $product = DB::table('san_pham')
-            ->where('id', $id)
-            ->first();
-
-        return view('admin.products.show', compact('product'));
+        return redirect()->route('product.show', $id);
     }
 
     public function delete($id)
