@@ -40,17 +40,6 @@
                             </div>
                         </a>
 
-                        <!-- NÚT THÊM GIỎ (đặt ngoài thẻ a để tránh lỗi click) -->
-                        <div style="padding: 0 10px 10px 10px;">
-                            <form action="{{ route('add.to.cart', $product->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" 
-                                        style="width: 100%; background-color: #2f5d3a; color: white; border: none; padding: 6px; border-radius: 4px; font-size: 13px;">
-                                    Thêm vào giỏ
-                                </button>
-                            </form>
-                        </div>
-
                     </div>
                 @endforeach
 
