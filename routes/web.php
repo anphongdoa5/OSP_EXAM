@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller2;
+use Illuminate\Http\Request;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/caycanh/theloai/{id}', [ProductController::class, 'byCategory'])->name('category');
@@ -17,8 +19,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/search', [Controller2::class, 'search'])->name('search');
+
+Route::match(['get', 'post'], '/timkiem', function (Request $request) {
+    return redirect()->route('search', [
+        'keyword' => $request->keyword
+    ]);
+});
+
 Route::get('/dashboard', function () {
-    //return view('dashboard');
+    //
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
