@@ -17,7 +17,6 @@ Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout
 
 Route::get('/search', [Controller2::class, 'search'])->name('search');
 
-// FIX timkiem (GET + POST)
 Route::match(['get', 'post'], '/timkiem', function (Request $request) {
     return redirect()->route('search', [
         'keyword' => $request->keyword
