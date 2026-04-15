@@ -1,22 +1,18 @@
 <x-guest-layout>
 
-    <!-- LOGO -->
     <div class="text-center mb-4">
-        <img src="{{ asset('images/logo.png') }}" width="100">
+        <img src="{{ asset('images/logo.png') }}" style="width:80px; display:block; margin:0 auto;">
     </div>
 
-    <!-- TIÊU ĐỀ -->
     <h2 class="text-center text-xl font-bold mb-4">
         Đăng nhập
     </h2>
 
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email -->
         <div>
             <x-input-label for="email" :value="'Email'" />
             <x-text-input id="email" class="block mt-1 w-full"
@@ -25,7 +21,6 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="'Mật khẩu'" />
 
@@ -37,7 +32,6 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember -->
         <div class="block mt-4">
             <label class="inline-flex items-center">
                 <input type="checkbox" name="remember"
@@ -48,7 +42,6 @@
             </label>
         </div>
 
-        <!-- BUTTON -->
         <div class="flex items-center justify-between mt-4">
 
             @if (Route::has('password.request'))
@@ -63,7 +56,6 @@
             </x-primary-button>
         </div>
 
-        <!-- LINK REGISTER -->
         <div class="text-center mt-4 text-sm">
             Chưa có tài khoản?
             <a href="{{ route('register') }}" class="text-blue-500">
