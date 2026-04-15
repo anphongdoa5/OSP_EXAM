@@ -15,7 +15,6 @@ Route::post('/update-cart', [ProductController::class, 'updateCart'])->name('car
 Route::get('/remove-from-cart/{id}', [ProductController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');
 use App\Http\Controllers\Controller3; 
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
