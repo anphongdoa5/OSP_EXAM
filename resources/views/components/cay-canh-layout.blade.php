@@ -154,10 +154,13 @@
                                 {{ Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu">
-                                <a class="dropdown-item" href="">Quản lý</a>
+                                <a class="dropdown-item" href="{{ url('/admin/products') }}" style="display: block !important;">
+                                    Quản lý
+                                </a>
+    
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <a class="dropdown-item" onclick="event.preventDefault();
+                                    <a class="dropdown-item" style="cursor:pointer" onclick="event.preventDefault();
                                                         this.closest('form').submit();">Đăng xuất</a>
                                 </form>
                                 </div>
