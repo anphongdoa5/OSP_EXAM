@@ -29,4 +29,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the orders for this user
+     */
+    public function donHangs()
+    {
+        return $this->hasMany(DonHang::class, 'user_id');
+    }
 }

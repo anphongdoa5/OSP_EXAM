@@ -12,6 +12,12 @@
             </div>
         @endif
 
+        @if(session('error'))
+            <div style="margin-bottom: 20px; padding: 15px; background-color: #f8d7da; color: #721c24; border-radius: 3px; border: 1px solid #f5c6cb;">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if(count($cart ?? []) > 0)
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
                 <thead>

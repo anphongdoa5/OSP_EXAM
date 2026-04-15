@@ -14,18 +14,18 @@
             <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                 <!-- Sort buttons -->
                 <div>
-                    <a href="{{ $currentCategory ? route('category', array_merge(request()->query(), ['sort' => 'asc'])) : url('/?sort=asc') }}" class="btn btn-sm" style="background-color: #2f5d3a; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Giá tăng dần</a>
-                    <a href="{{ $currentCategory ? route('category', array_merge(request()->query(), ['sort' => 'desc'])) : url('/?sort=desc') }}" class="btn btn-sm" style="background-color: #2f5d3a; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Giá giảm dần</a>
+                    <a href="{{ $currentCategory ? route('category', $currentCategory->id) . '?' . http_build_query(array_merge(request()->query(), ['sort' => 'asc'])) : url('/?sort=asc') }}" class="btn btn-sm" style="background-color: #2f5d3a; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Giá tăng dần</a>
+                    <a href="{{ $currentCategory ? route('category', $currentCategory->id) . '?' . http_build_query(array_merge(request()->query(), ['sort' => 'desc'])) : url('/?sort=desc') }}" class="btn btn-sm" style="background-color: #2f5d3a; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Giá giảm dần</a>
                 </div>
 
                 <!-- Easy care filter -->
                 <div>
-                    <a href="{{ $currentCategory ? route('category', array_merge(request()->query(), ['easy_care' => request('easy_care') == '1' ? '0' : '1'])) : url('/?easy_care=' . (request('easy_care') == '1' ? '0' : '1')) }}" class="btn btn-sm" style="background-color: {{ request('easy_care') == '1' ? '#23b85c' : '#999' }}; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Dễ chăm sóc</a>
+                    <a href="{{ $currentCategory ? route('category', $currentCategory->id) . '?' . http_build_query(array_merge(request()->query(), ['easy_care' => request('easy_care') == '1' ? '0' : '1'])) : url('/?easy_care=' . (request('easy_care') == '1' ? '0' : '1')) }}" class="btn btn-sm" style="background-color: {{ request('easy_care') == '1' ? '#23b85c' : '#999' }}; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Dễ chăm sóc</a>
                 </div>
 
                 <!-- Shade tolerant filter -->
                 <div>
-                    <a href="{{ $currentCategory ? route('category', array_merge(request()->query(), ['shade_tolerant' => request('shade_tolerant') == '1' ? '0' : '1'])) : url('/?shade_tolerant=' . (request('shade_tolerant') == '1' ? '0' : '1')) }}" class="btn btn-sm" style="background-color: {{ request('shade_tolerant') == '1' ? '#23b85c' : '#999' }}; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Chịu được bóng râm</a>
+                    <a href="{{ $currentCategory ? route('category', $currentCategory->id) . '?' . http_build_query(array_merge(request()->query(), ['shade_tolerant' => request('shade_tolerant') == '1' ? '0' : '1'])) : url('/?shade_tolerant=' . (request('shade_tolerant') == '1' ? '0' : '1')) }}" class="btn btn-sm" style="background-color: {{ request('shade_tolerant') == '1' ? '#23b85c' : '#999' }}; color: white; border: none; padding: 8px 15px; border-radius: 3px; text-decoration: none; cursor: pointer;">Chịu được bóng râm</a>
                 </div>
             </div>
         </div>

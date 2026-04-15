@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\SanPham;
 use App\Models\DanhMuc;
+use App\Models\DonHang;
+use App\Models\ChiTietDonHang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -149,6 +154,11 @@ class ProductController extends Controller
      */
     public function checkout(Request $request)
     {
+        // Check if user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để đặt hàng!');
+        }
+
         $cart = session('cart', []);
         
         if (empty($cart)) {
@@ -156,11 +166,44 @@ class ProductController extends Controller
         }
         
         try {
-            // Clear the cart after checkout
+            DB::beginTransaction();
+
+            // Map payment method
+            $paymentMethodMap = [
+                'cod' => 0,           // Tiền mặt
+                'bank' => 1,          // Chuyển khoản ngân hàng
+                'online' => 2,        // Thanh toán trực tuyến
+            ];
+            
+            $paymentMethod = $request->input('payment_method', 'cod');
+            $paymentCode = $paymentMethodMap[$paymentMethod] ?? 0;
+
+            // Create order
+            $donHang = DonHang::create([
+                'ngay_dat_hang' => now(),
+                'tinh_trang' => 0, // 0: Pending, 1: Confirmed, 2: Shipped, 3: Delivered
+                'hinh_thuc_thanh_toan' => $paymentCode,
+                'user_id' => Auth::id(),
+            ]);
+
+            // Create order details
+            foreach ($cart as $productId => $item) {
+                ChiTietDonHang::create([
+                    'ma_don_hang' => $donHang->ma_don_hang,
+                    'id_san_pham' => $item['id'],
+                    'so_luong' => $item['quantity'],
+                    'don_gia' => $item['gia_ban'],
+                ]);
+            }
+
+            DB::commit();
+
+            // Clear the cart after successful checkout
             session(['cart' => []]);
             
-            return redirect('/gio-hang')->with('success', 'Đã đặt hàng thành công!');
+            return redirect('/gio-hang')->with('success', 'Đặt hàng thành công! Mã đơn hàng: ' . $donHang->ma_don_hang);
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect('/gio-hang')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại!');
         }
     }
